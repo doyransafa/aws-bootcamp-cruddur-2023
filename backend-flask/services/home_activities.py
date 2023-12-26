@@ -1,6 +1,7 @@
 from datetime import datetime, timedelta, timezone
 class HomeActivities:
   def run(cognito_user_id=None):
+    print(cognito_user_id)
     now = datetime.now(timezone.utc).astimezone()
     results = [{
       'uuid': '68f126b0-1ceb-4a33-88be-d90fa7109eee',
@@ -55,3 +56,35 @@ class HomeActivities:
         results.insert(0,extra_crud)
 
     return results
+
+
+# from datetime import datetime, timedelta, timezone
+# from lib.db import pool, query_wrap_array
+
+# class HomeActivities:
+#   def run(cognito_user_id=None):
+#     # now = datetime.now(timezone.utc).astimezone()
+#     print('anan')
+#     sql = query_wrap_array("""
+#       SELECT
+#         activities.uuid,
+#         users.display_name,
+#         users.handle,
+#         activities.message,
+#         activities.replies_count,
+#         activities.reposts_count,
+#         activities.likes_count,
+#         activities.reply_to_activity_uuid,
+#         activities.expires_at,
+#         activities.created_at
+#       FROM public.activities
+#       LEFT JOIN public.users ON users.uuid = activities.user_uuid
+#       ORDER BY activities.created_at DESC
+#       """)
+#     print(sql)
+#     with pool.connection() as conn:
+#       with conn.cursor() as cur:
+#         cur.execute(sql)
+#         results = cur.fetchone()
+
+#     return results
